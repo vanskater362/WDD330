@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>TODO App</title>
+   <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+   <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+</head>
+<body>
+   <ion-app>
+      <ion-header class="ion-text-center">
+         <ion-toolbar>
+           <ion-title>//TODO: Add Tasks</ion-title>
+         </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding ion-text-center">
+         <ion-grid fixed>
+            <ion-row>
+               <ion-col size-md="6" offset-md="3">
+                  <ion-card>
+                     <ion-card-header>
+                        <ion-card-title>Tasks</ion-card-title>
+                     </ion-card-header>
+                     <ion-card-content>
+                        <ion-list>
+                           <ion-item lines="inset">
+                              <ion-checkbox id="checkbox" slot="start"></ion-checkbox>
+                              <ion-label id="taskText" lines="inset">Awesome Task</ion-label>
+                              <ion-button id="deleteBtn" color="danger">
+                                 <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                              </ion-button>
+                           </ion-item>
+                        </ion-list>
+                        <div class="ion-float-start">
+                           <h1 id="numTasks" class="ion-float-start">4 </h1>
+                           <h2 class="ion-float-end">tasks left.</h2>
+                        </div>
+                        <div class="ion-float-end">
+                           <ion-button id="allBtn">All</ion-button>
+                           <ion-button id="activeBtn" fill="outline">Active</ion-button>
+                           <ion-button id="completedBtn" fill="outline">Completed</ion-button>
+                        </div>
+                     </ion-card-content>
+                  </ion-card>
+               </ion-col>
+            </ion-row>
+         </ion-content>
+      </ion-grid>
+    
+      <ion-footer >
+           <ion-grid fixed>
+               <ion-row>
+                  <ion-col size-md="6" offset-md="3" class="ion-text-left">    
+                     <ion-input id="addNew" type="text" placeholder="New Task">          
+                     <ion-button id="addNewBtn" color="success">
+                        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+                     </ion-button> </ion-input>  
+                  </ion-col>
+               </ion-row>
+           </ion-grid>
+      </ion-footer>
+    </ion-app>
+</body>
+</html>
