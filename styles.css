@@ -15,5 +15,7 @@ body {
 
 .column {
   margin-right: 50px;
+  float: left;
+  
 }
  
