@@ -5,6 +5,7 @@ const allBtn       = document.querySelector('#allBtn');
 const activeBtn    = document.querySelector('#activeBtn');
 const completedBtn = document.querySelector('#completedBtn');
 const taskList     = document.querySelector('#taskList');
+const checkbox     = document.querySelector('#checkbox')
 
 addNewBtn.addEventListener('click', () => {
    const newTask = addNew.value;
@@ -14,8 +15,10 @@ addNewBtn.addEventListener('click', () => {
    } else {
       //TODO: add task to the database.
       const newItem = document.createElement('ion-item');
-      const newCheck = document.createElement('ion-')
+      const newCheck = document.createElement('ion-checkbox');
+      newItem.innerHTML = newCheck;
       newItem.textContent = newTask;
+      //taskList.appendChild(newCheck);
       taskList.appendChild(newItem);
       console.log('content of input is: ' + newTask);
       addNew.value = '';
