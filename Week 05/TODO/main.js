@@ -5,7 +5,10 @@ const allBtn       = document.querySelector('#allBtn');
 const activeBtn    = document.querySelector('#activeBtn');
 const completedBtn = document.querySelector('#completedBtn');
 const taskList     = document.querySelector('#taskList');
-const checkbox     = document.querySelector('#checkbox')
+const checkbox     = document.querySelector('#checkbox');
+
+
+let tasks = [];
 
 addNewBtn.addEventListener('click', () => {
    const newTask = addNew.value;
@@ -14,12 +17,10 @@ addNewBtn.addEventListener('click', () => {
       console.log('no task entered!');
    } else {
       //TODO: add task to the database.
-      const newItem = document.createElement('ion-item');
-      const newCheck = document.createElement('ion-checkbox');
-      newItem.innerHTML = newCheck;
-      newItem.textContent = newTask;
-      //taskList.appendChild(newCheck);
-      taskList.appendChild(newItem);
+      tasks.push(newTask);
+      taskList.appendChild(renderOneTask(newTask));
+      taskCount();
+
       console.log('content of input is: ' + newTask);
       addNew.value = '';
    }
@@ -33,10 +34,9 @@ addNew.addEventListener('keypress', function (e) {
          console.log('no task entered!');
       } else {
          //TODO: add task to the database.
-         //const newItem = document.createElement('ion-item');
-         //const newCheck = document.createElement('ion-')
-         //newItem.textContent = newTask;
+         tasks.push(newTask);
          taskList.appendChild(renderOneTask(newTask));
+         taskCount();
 
          console.log('content of input is: ' + newTask);
          addNew.value = '';
@@ -54,6 +54,14 @@ function renderOneTask(task) {
    </ion-button>`;
    return item;
 }
+
+function taskCount() {
+   const count = document.querySelector('#numTasks');
+   count.innerHTML = `${tasks.length} tasks left`
+   return count;
+}
+
+
 
 allBtn.addEventListener('click', () => {
    //TODO: SELECT * FROM tasks;
