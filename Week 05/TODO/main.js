@@ -33,15 +33,27 @@ addNew.addEventListener('keypress', function (e) {
          console.log('no task entered!');
       } else {
          //TODO: add task to the database.
-         const newItem = document.createElement('ion-item');
-         const newCheck = document.createElement('ion-')
-         newItem.textContent = newTask;
-         taskList.appendChild(newItem);
+         //const newItem = document.createElement('ion-item');
+         //const newCheck = document.createElement('ion-')
+         //newItem.textContent = newTask;
+         taskList.appendChild(renderOneTask(newTask));
+
          console.log('content of input is: ' + newTask);
          addNew.value = '';
       }
    }
-})
+});
+
+function renderOneTask(task) {
+   const item = document.createElement("ion-item");
+   //item.setAttribute('data-name', hike.name);
+   item.innerHTML = `<ion-checkbox slot="start"></ion-checkbox>
+   <ion-label id="taskText" lines="inset">${task}</ion-label>
+   <ion-button color="danger">
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+   </ion-button>`;
+   return item;
+}
 
 allBtn.addEventListener('click', () => {
    //TODO: SELECT * FROM tasks;
