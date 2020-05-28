@@ -9,10 +9,23 @@ const checkbox     = document.querySelector('#checkbox');
 
 
 let tasks = [];
+class taskItem { 
+   constructor(task) {
+      let date = new Date();
+      this.id = date.getTime();
+      this.name = task;
+      this.done = false;
+   }
+   
+   getName() { return this.name; }
+   getDone() { return this.done; }
+   getId()   { return this.id;   }
+   setDone(done) { this.done = done; }
+}
 
 addNewBtn.addEventListener('click', () => {
-   const newTask = addNew.value;
-   if (newTask.trim().length <= 0) {
+   const newTask = new taskItem(addNew.value);
+   if (addNew.value.trim().length <= 0) {
       //TODO: maybe add css to make the input box glow red.
       console.log('no task entered!');
    } else {
@@ -20,16 +33,14 @@ addNewBtn.addEventListener('click', () => {
       tasks.push(newTask);
       taskList.appendChild(renderOneTask(newTask));
       taskCount();
-
-      console.log('content of input is: ' + newTask);
       addNew.value = '';
    }
 });
 
 addNew.addEventListener('keypress', function (e) {
-   const newTask = addNew.value;
+   const newTask = new taskItem(addNew.value);
    if(e.key === 'Enter'){
-      if (newTask.trim().length <= 0) {
+      if (addNew.value.trim().length <= 0) {
          //TODO: maybe add css to make the input box glow red.
          console.log('no task entered!');
       } else {
@@ -37,8 +48,6 @@ addNew.addEventListener('keypress', function (e) {
          tasks.push(newTask);
          taskList.appendChild(renderOneTask(newTask));
          taskCount();
-
-         console.log('content of input is: ' + newTask);
          addNew.value = '';
       }
    }
@@ -48,7 +57,7 @@ function renderOneTask(task) {
    const item = document.createElement("ion-item");
    //item.setAttribute('data-name', hike.name);
    item.innerHTML = `<ion-checkbox slot="start"></ion-checkbox>
-   <ion-label id="taskText" lines="inset">${task}</ion-label>
+   <ion-label id="taskText" lines="inset">${task.getName()}</ion-label>
    <ion-button color="danger">
       <ion-icon slot="icon-only" name="close-outline"></ion-icon>
    </ion-button>`;
