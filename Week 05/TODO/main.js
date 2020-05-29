@@ -23,6 +23,24 @@ class taskItem {
    setDone(done) { this.done = done; }
 }
 
+function addListener(i) {
+   let del = document.getElementsByClassName("delete");
+   let check = document.getElementsByClassName("check");
+   let text = document.getElementsByClassName("text");
+   
+   //for (let i = 0; i < tasks.length; i++) {
+      //del[i].removeEventListener('click', linkclick, false);
+      del[i].addEventListener("click", function delClick() {
+         console.log("you clicked region number " + i);
+         //delete tasks[i];
+         tasks.splice(i,1);
+         localStorage.setItem("itemList", JSON.stringify(tasks));
+         //console.log(tasks);
+         renderAllTask();
+
+      });
+}
+
 addNewBtn.addEventListener('click', () => {
    const newTask = new taskItem(addNew.value);
    if (addNew.value.trim().length <= 0) {
@@ -31,7 +49,9 @@ addNewBtn.addEventListener('click', () => {
    } else {
       //TODO: add task to the database.
       tasks.push(newTask);
+      localStorage.setItem("itemList", JSON.stringify(tasks));
       taskList.appendChild(renderOneTask(newTask));
+      addListener(tasks.length-1);
       taskCount();
       addNew.value = '';
    }
@@ -46,7 +66,9 @@ addNew.addEventListener('keypress', function (e) {
       } else {
          //TODO: add task to the database.
          tasks.push(newTask);
+         localStorage.setItem("itemList", JSON.stringify(tasks));
          taskList.appendChild(renderOneTask(newTask));
+         addListener(tasks.length-1);
          taskCount();
          addNew.value = '';
       }
@@ -55,13 +77,29 @@ addNew.addEventListener('keypress', function (e) {
 
 function renderOneTask(task) {
    const item = document.createElement("ion-item");
-   //item.setAttribute('data-name', hike.name);
-   item.innerHTML = `<ion-checkbox slot="start"></ion-checkbox>
-   <ion-label id="taskText" lines="inset">${task.getName()}</ion-label>
-   <ion-button color="danger">
+   
+   item.innerHTML = `<ion-checkbox class="check" slot="start"></ion-checkbox>
+   <ion-label class="text" lines="inset">${task.getName()}</ion-label>
+   <ion-button class="delete" color="danger">
       <ion-icon slot="icon-only" name="close-outline"></ion-icon>
    </ion-button>`;
+   
    return item;
+}
+
+function renderAllTask() {
+   taskList.innerHTML = "";
+   const newList = JSON.parse(localStorage.getItem("itemList"));
+   tasks.splice(0, tasks.length);
+   console.log(tasks[0]);
+
+   for (let i = 0; i < newList.length; i++){
+      const newTask = new taskItem(newList[i].name);
+      tasks.push(newTask);
+      taskList.appendChild(renderOneTask(newTask));
+      addListener(i);
+   }
+   taskCount();
 }
 
 function taskCount() {
@@ -94,4 +132,4 @@ completedBtn.addEventListener('click', () => {
    activeBtn.fill='outline';
    completedBtn.fill='solid';
    console.log('SELECT * FROM tasks WHERE completed = TRUE;');
-})
+});
