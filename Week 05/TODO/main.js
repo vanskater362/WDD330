@@ -1,20 +1,20 @@
 const addNewBtn    = document.querySelector('#addNewBtn');
 const addNew       = document.querySelector('#addNew');
-const deleteBtn    = document.querySelector('#deleteBtn');
 const allBtn       = document.querySelector('#allBtn');
 const activeBtn    = document.querySelector('#activeBtn');
 const completedBtn = document.querySelector('#completedBtn');
 const taskList     = document.querySelector('#taskList');
-const checkbox     = document.querySelector('#checkbox');
 
+window.addEventListener('load', () => {
+   renderAllTask();
+})
 
 let tasks = [];
 class taskItem { 
-   constructor(task) {
-      let date = new Date();
-      this.id = date.getTime();
+   constructor(task, id, done) {
+      this.id = id;
       this.name = task;
-      this.done = false;
+      this.done = done;
    }
    
    getName() { return this.name; }
@@ -28,26 +28,33 @@ function addListener(i) {
    let check = document.getElementsByClassName("check");
    let text = document.getElementsByClassName("text");
    
-   //for (let i = 0; i < tasks.length; i++) {
-      //del[i].removeEventListener('click', linkclick, false);
-      del[i].addEventListener("click", function delClick() {
-         console.log("you clicked region number " + i);
-         //delete tasks[i];
-         tasks.splice(i,1);
-         localStorage.setItem("itemList", JSON.stringify(tasks));
-         //console.log(tasks);
-         renderAllTask();
+   del[i].addEventListener("click", function delClick() {
+      tasks.splice(i,1);
+      localStorage.setItem("itemList", JSON.stringify(tasks));
+      renderAllTask();
+   });
 
-      });
+   check[i].addEventListener("click", () => {
+      if (!tasks[i].done) {
+         tasks[i].done = true;
+         text[i].innerHTML = `<s>${tasks[i].name}</s>`;
+         localStorage.setItem("itemList", JSON.stringify(tasks));
+      }else {
+         text[i].innerHTML = tasks[i].name;
+         tasks[i].done = false;
+         localStorage.setItem("itemList", JSON.stringify(tasks));
+      }
+   })
 }
 
 addNewBtn.addEventListener('click', () => {
-   const newTask = new taskItem(addNew.value);
+   let date = new Date();
+   let done = false;
+   const newTask = new taskItem(addNew.value, date.getTime(), done);
    if (addNew.value.trim().length <= 0) {
       //TODO: maybe add css to make the input box glow red.
       console.log('no task entered!');
    } else {
-      //TODO: add task to the database.
       tasks.push(newTask);
       localStorage.setItem("itemList", JSON.stringify(tasks));
       taskList.appendChild(renderOneTask(newTask));
@@ -58,13 +65,14 @@ addNewBtn.addEventListener('click', () => {
 });
 
 addNew.addEventListener('keypress', function (e) {
-   const newTask = new taskItem(addNew.value);
+   let date = new Date();
+   let done = false;
+   const newTask = new taskItem(addNew.value, date.getTime(), done);
    if(e.key === 'Enter'){
       if (addNew.value.trim().length <= 0) {
          //TODO: maybe add css to make the input box glow red.
          console.log('no task entered!');
       } else {
-         //TODO: add task to the database.
          tasks.push(newTask);
          localStorage.setItem("itemList", JSON.stringify(tasks));
          taskList.appendChild(renderOneTask(newTask));
@@ -77,12 +85,19 @@ addNew.addEventListener('keypress', function (e) {
 
 function renderOneTask(task) {
    const item = document.createElement("ion-item");
-   
-   item.innerHTML = `<ion-checkbox class="check" slot="start"></ion-checkbox>
+   if (task.done) {
+      item.innerHTML = `<ion-checkbox class="check" slot="start"></ion-checkbox>
+      <ion-label class="text" lines="inset"><s>${task.getName()}</s></ion-label>
+      <ion-button class="delete" color="danger">
+         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>`;
+   }else {
+      item.innerHTML = `<ion-checkbox class="check" slot="start"></ion-checkbox>
    <ion-label class="text" lines="inset">${task.getName()}</ion-label>
    <ion-button class="delete" color="danger">
       <ion-icon slot="icon-only" name="close-outline"></ion-icon>
    </ion-button>`;
+   }
    
    return item;
 }
@@ -91,10 +106,9 @@ function renderAllTask() {
    taskList.innerHTML = "";
    const newList = JSON.parse(localStorage.getItem("itemList"));
    tasks.splice(0, tasks.length);
-   console.log(tasks[0]);
 
    for (let i = 0; i < newList.length; i++){
-      const newTask = new taskItem(newList[i].name);
+      const newTask = new taskItem(newList[i].name, newList[i].id, newList[i].done);
       tasks.push(newTask);
       taskList.appendChild(renderOneTask(newTask));
       addListener(i);
