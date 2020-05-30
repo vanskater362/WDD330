@@ -6,7 +6,8 @@ const completedBtn = document.querySelector('#completedBtn');
 const taskList     = document.querySelector('#taskList');
 
 window.addEventListener('load', () => {
-   renderAllTask();
+   const newList = JSON.parse(localStorage.getItem("itemList"));
+   renderAllTask(newList);
 })
 
 let tasks = [];
@@ -31,7 +32,7 @@ function addListener(i) {
    del[i].addEventListener("click", function delClick() {
       tasks.splice(i,1);
       localStorage.setItem("itemList", JSON.stringify(tasks));
-      renderAllTask();
+      renderAllTask(JSON.parse(localStorage.getItem("itemList")));
    });
 
    check[i].addEventListener("click", () => {
@@ -102,9 +103,9 @@ function renderOneTask(task) {
    return item;
 }
 
-function renderAllTask() {
+function renderAllTask(newList) {
    taskList.innerHTML = "";
-   const newList = JSON.parse(localStorage.getItem("itemList"));
+   
    tasks.splice(0, tasks.length);
 
    for (let i = 0; i < newList.length; i++){
@@ -126,24 +127,42 @@ function taskCount() {
 
 allBtn.addEventListener('click', () => {
    //TODO: SELECT * FROM tasks;
+   const newList = JSON.parse(localStorage.getItem("itemList"));
    allBtn.fill='solid';
    activeBtn.fill='outline';
    completedBtn.fill='outline';
-   console.log('SELECT * FROM tasks;');
+   renderAllTask(newList);
 });
 
 activeBtn.addEventListener('click', () => {
-   //TODO: SELECT * FROM tasks WHERE active = TRUE;
+   //TODO: SELECT * FROM tasks WHERE done = FALSE;
+   const fullList = JSON.parse(localStorage.getItem("itemList"));
+   let newList = [];
+   for (var i = 0; i < fullList.length; i++) {
+      if(!fullList[i].done){
+         let task = new taskItem(fullList[i].name, fullList[i].id, fullList[i].done);
+         newList.push(task);
+      }
+   }
    allBtn.fill='outline';
    activeBtn.fill='solid';
    completedBtn.fill='outline';
-   console.log('SELECT * FROM tasks WHERE active = TRUE;');
+   renderAllTask(newList);
+   
 });
 
 completedBtn.addEventListener('click', () => {
    //TODO: SELECT * FROM tasks WHERE completed = TRUE;
+   const fullList = JSON.parse(localStorage.getItem("itemList"));
+   let newList = [];
+   for (var i = 0; i < fullList.length; i++) {
+      if(fullList[i].done){
+         let task = new taskItem(fullList[i].name, fullList[i].id, fullList[i].done);
+         newList.push(task);
+      }
+   }
    allBtn.fill='outline';
    activeBtn.fill='outline';
    completedBtn.fill='solid';
-   console.log('SELECT * FROM tasks WHERE completed = TRUE;');
+   renderAllTask(newList);
 });
