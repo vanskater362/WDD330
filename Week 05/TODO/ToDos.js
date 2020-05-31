@@ -12,12 +12,12 @@ class taskItem {
    setDone(done) { this.done = done; }
 }
 
-const ls = new Ls();
 let tasks = [];
+const ls = new Ls();
 export default class ToDos {
    constructor() {
    }
-
+   
    addListener(i) {
       let del = document.getElementsByClassName("delete");
       let check = document.getElementsByClassName("check");
@@ -90,4 +90,6 @@ export default class ToDos {
    addTask(task) {
       tasks.push(task);
    }
+   
+   getTask() { return tasks; }
 }
