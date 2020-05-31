@@ -22,11 +22,12 @@ export default class ToDos {
       let del = document.getElementsByClassName("delete");
       let check = document.getElementsByClassName("check");
       let text = document.getElementsByClassName("text");
+      let self = this;
       
       del[i].addEventListener("click", function delClick() {
          tasks.splice(i,1);
          ls.insert(tasks);
-         ToDos.renderAllTask(ls.getAllItems());
+         self.renderAllTask(ls.getAllItems());
       });
 
       check[i].addEventListener("click", () => {
