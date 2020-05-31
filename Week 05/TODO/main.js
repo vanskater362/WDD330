@@ -1,4 +1,4 @@
-import Todos from './Todos.js';
+import Todos from './ToDos.js';
 
 const addNewBtn    = document.querySelector('#addNewBtn');
 const addNew       = document.querySelector('#addNew');
