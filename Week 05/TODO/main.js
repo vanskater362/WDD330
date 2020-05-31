@@ -27,7 +27,7 @@ addNewBtn.addEventListener('click', () => {
       todo.addTask(newTask);
       ls.insert(todo.getTask());
       taskList.appendChild(todo.renderOneTask(newTask));
-      todo.addListener(tasks.length-1);
+      todo.addListener(todo.getTask().length-1);
       todo.taskCount();
       addNew.value = '';
    }
@@ -45,7 +45,7 @@ addNew.addEventListener('keypress', function (e) {
          todo.addTask(newTask);
          ls.insert(todo.getTask());
          taskList.appendChild(todo.renderOneTask(newTask));
-         todo.addListener(tasks.length-1);
+         todo.addListener(todo.getTask().length-1);
          todo.taskCount();
          addNew.value = '';
       }
