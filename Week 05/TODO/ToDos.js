@@ -26,7 +26,7 @@ export default class ToDos {
       del[i].addEventListener("click", function delClick() {
          tasks.splice(i,1);
          ls.insert(tasks);
-         this.renderAllTask(ls.getAllItems());
+         renderAllTask(ls.getAllItems());
       });
 
       check[i].addEventListener("click", () => {
