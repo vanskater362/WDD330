@@ -1,4 +1,5 @@
 import Todos from './ToDos.js';
+import Ls from './ls.js';
 
 const addNewBtn    = document.querySelector('#addNewBtn');
 const addNew       = document.querySelector('#addNew');
@@ -7,9 +8,10 @@ const activeBtn    = document.querySelector('#activeBtn');
 const completedBtn = document.querySelector('#completedBtn');
 const taskList     = document.querySelector('#taskList');
 const todo = new Todos();
+const ls = new Ls();
 
 window.addEventListener('load', () => {
-   const newList = JSON.parse(localStorage.getItem("itemList"));
+   const newList = ls.getAllItems();//JSON.parse(localStorage.getItem("itemList"));
    if (newList != null) 
       todo.renderAllTask(newList);
 });

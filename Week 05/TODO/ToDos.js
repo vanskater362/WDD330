@@ -1,3 +1,4 @@
+import Ls from './ls.js';
 class taskItem { 
    constructor(task, id, done) {
       this.id = id;
@@ -11,6 +12,7 @@ class taskItem {
    setDone(done) { this.done = done; }
 }
 
+const ls = new Ls();
 let tasks = [];
 export default class ToDos {
    constructor() {
