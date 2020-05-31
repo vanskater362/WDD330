@@ -24,7 +24,7 @@ addNewBtn.addEventListener('click', () => {
    } else {
       todo.addTask(newTask);
       localStorage.setItem("itemList", JSON.stringify(tasks));
-      taskList.appendChild(renderOneTask(newTask));
+      taskList.appendChild(todo.renderOneTask(newTask));
       todo.addListener(tasks.length-1);
       todo.taskCount();
       addNew.value = '';
@@ -42,7 +42,7 @@ addNew.addEventListener('keypress', function (e) {
       } else {
          todo.addTask(newTask);
          localStorage.setItem("itemList", JSON.stringify(tasks));
-         taskList.appendChild(renderOneTask(newTask));
+         taskList.appendChild(todo.renderOneTask(newTask));
          todo.addListener(tasks.length-1);
          todo.taskCount();
          addNew.value = '';
@@ -82,7 +82,7 @@ completedBtn.addEventListener('click', () => {
    for (var i = 0; i < fullList.length; i++) {
       if(fullList[i].done){
          let task = todo.createTask(fullList[i].name, fullList[i].id, fullList[i].done);
-         todo.newList.push(task);
+         newList.push(task);
       }
    }
    allBtn.fill='outline';

@@ -24,7 +24,7 @@ export default class ToDos {
       del[i].addEventListener("click", function delClick() {
          tasks.splice(i,1);
          localStorage.setItem("itemList", JSON.stringify(tasks));
-         renderAllTask(JSON.parse(localStorage.getItem("itemList")));
+         this.renderAllTask(JSON.parse(localStorage.getItem("itemList")));
       });
 
       check[i].addEventListener("click", () => {
@@ -37,7 +37,7 @@ export default class ToDos {
             tasks[i].done = false;
             localStorage.setItem("itemList", JSON.stringify(tasks));
          }
-      })
+      });
    }
 
    renderOneTask(task) {
@@ -67,10 +67,10 @@ export default class ToDos {
       for (let i = 0; i < newList.length; i++){
          const newTask = new taskItem(newList[i].name, newList[i].id, newList[i].done);
          tasks.push(newTask);
-         taskList.appendChild(renderOneTask(newTask));
-         addListener(i);
+         taskList.appendChild(this.renderOneTask(newTask));
+         this.addListener(i);
       }
-      taskCount();
+      this.taskCount();
    }
 
    taskCount() {
