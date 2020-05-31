@@ -25,7 +25,7 @@ export default class ToDos {
       
       del[i].addEventListener("click", function delClick() {
          tasks.splice(i,1);
-         localStorage.setItem("itemList", JSON.stringify(tasks));
+         ls.insert(tasks);
          this.renderAllTask(JSON.parse(localStorage.getItem("itemList")));
       });
 
@@ -33,11 +33,11 @@ export default class ToDos {
          if (!tasks[i].done) {
             tasks[i].done = true;
             text[i].innerHTML = `<s>${tasks[i].name}</s>`;
-            localStorage.setItem("itemList", JSON.stringify(tasks));
+            ls.insert(tasks);
          }else {
             text[i].innerHTML = tasks[i].name;
             tasks[i].done = false;
-            localStorage.setItem("itemList", JSON.stringify(tasks));
+            ls.insert(tasks);
          }
       });
    }

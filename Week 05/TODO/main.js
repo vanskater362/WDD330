@@ -11,7 +11,7 @@ const todo = new Todos();
 const ls = new Ls();
 
 window.addEventListener('load', () => {
-   const newList = ls.getAllItems();//JSON.parse(localStorage.getItem("itemList"));
+   const newList = ls.getAllItems();
    if (newList != null) 
       todo.renderAllTask(newList);
 });
@@ -25,7 +25,7 @@ addNewBtn.addEventListener('click', () => {
       console.log('no task entered!');
    } else {
       todo.addTask(newTask);
-      localStorage.setItem("itemList", JSON.stringify(tasks));
+      ls.insert(tasks);
       taskList.appendChild(todo.renderOneTask(newTask));
       todo.addListener(tasks.length-1);
       todo.taskCount();
@@ -43,7 +43,7 @@ addNew.addEventListener('keypress', function (e) {
          console.log('no task entered!');
       } else {
          todo.addTask(newTask);
-         localStorage.setItem("itemList", JSON.stringify(tasks));
+         ls.insert(tasks);
          taskList.appendChild(todo.renderOneTask(newTask));
          todo.addListener(tasks.length-1);
          todo.taskCount();
@@ -54,7 +54,7 @@ addNew.addEventListener('keypress', function (e) {
 
 allBtn.addEventListener('click', () => {
    //TODO: SELECT * FROM tasks;
-   const newList = JSON.parse(localStorage.getItem("itemList"));
+   const newList = ls.getAllItems();
    allBtn.fill='solid';
    activeBtn.fill='outline';
    completedBtn.fill='outline';
@@ -63,7 +63,7 @@ allBtn.addEventListener('click', () => {
 
 activeBtn.addEventListener('click', () => {
    //TODO: SELECT * FROM tasks WHERE done = FALSE;
-   const fullList = JSON.parse(localStorage.getItem("itemList"));
+   const fullList = ls.getAllItems();
    let newList = [];
    for (var i = 0; i < fullList.length; i++) {
       if(!fullList[i].done){
@@ -79,7 +79,7 @@ activeBtn.addEventListener('click', () => {
 
 completedBtn.addEventListener('click', () => {
    //TODO: SELECT * FROM tasks WHERE completed = TRUE;
-   const fullList = JSON.parse(localStorage.getItem("itemList"));
+   const fullList = ls.getAllItems();
    let newList = [];
    for (var i = 0; i < fullList.length; i++) {
       if(fullList[i].done){
