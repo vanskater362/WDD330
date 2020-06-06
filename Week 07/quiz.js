@@ -115,6 +115,6 @@ const game = {
 }
 /*function start(){
     game.start(quiz);
-}*/
+}
 view.start.addEventListener('click', ()=>game.start(quiz), false);
-view.response.addEventListener('click', (event) => game.check(event), false);
+view.response.addEventListener('click', (event) => game.check(event), false);*/
