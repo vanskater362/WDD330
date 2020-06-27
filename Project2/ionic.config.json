@@ -1,0 +1,9 @@
+{
+  "name": "Organizd",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "07d8a4a3"
+}

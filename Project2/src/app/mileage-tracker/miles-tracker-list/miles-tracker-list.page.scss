@@ -1,0 +1,18 @@
+.capitalize {
+   text-transform: uppercase;
+}
+
+.gridContainer {
+   max-width: 25%;
+}
+
+ion-item {
+   white-space: wrap;
+   text-overflow: inherit;
+   overflow: inherit;
+}
+
+.scrolly {
+    overflow-y: scroll !important;
+    max-height: 65vh;
+}
